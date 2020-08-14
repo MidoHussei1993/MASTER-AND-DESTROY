@@ -1,0 +1,11 @@
+##user
+
+
+POST  http://localhost:3000/api/user
+
+{
+    "name": "said ahmed",
+    "email": "mido2700@gmail.com",
+    "password": "0149605318",
+    "jobTitle": "programmer"
+}

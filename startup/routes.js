@@ -1,12 +1,14 @@
 const express = require('express');
 const users = require('../routes/users');
 const attendance = require('../routes/attendance.route');
+const project = require('../routes/project.route');
+const task = require('../routes/task.route');
 const auth = require('../routes/auth');
 const error = require('../middleware/error');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const multer = require('multer')
-
+const path = require('path');
 
 // multer configaration object
 const fileStorage = multer.diskStorage({
@@ -44,8 +46,14 @@ module.exports = function(app) {
   app.use(multer({storage:fileStorage , fileFilter: fileFilter}).single('image'));//this for more configuration
   app.use(express.json());
   app.use(cors());
-  app.use('/api/users', users);
+  // this is mean if we have route wwww.domain.com/user-image/img.png this will work 
+  //becouse by defult the user-image conseder as root folder 
+  //but no is not
+  app.use('/user-image',express.static('user-image'));
+  app.use('/api/user', users);
+  app.use('/api/project', project);
   app.use('/api/attendance', attendance);
+  app.use('/api/task', task);
   app.use('/api/auth', auth);
   app.use(error);
 }
